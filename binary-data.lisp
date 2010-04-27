@@ -1,5 +1,5 @@
 (defpackage #:nixeagle.binary-data
-  (:use :cl))
+  (:use :cl :alexandria))
 (in-package :nixeagle.binary-data)
 
 #+ ()
