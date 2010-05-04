@@ -1,6 +1,12 @@
-(defpackage #:nixeagle.binary-data
-  (:use :cl)
-  (:nicknames :binary-data))
+`(defpackage #:nixeagle.binary-data
+   (:use :cl :closer-mop)
+   (:nicknames :binary-data)
+   (:shadowing-import-from :closer-mop
+                           ,@'#.(let (list)
+                                  (do-external-symbols (s :closer-mop)
+                                    (push s list))
+                                  list)))
+
 (in-package :nixeagle.binary-data)
 
 (defclass binary () ()
