@@ -15,6 +15,12 @@ This will be used in generic functions and method specializers as the base
 class. All classes have to be compatable with these methods or implement
 modifications so they do the right thing."))
 
+(defgeneric bit-size-of (thing)
+  (:documentation "Size of THING in bits."))
+
+(defgeneric size-of (thing)
+  (:documentation "Size of THING in bytes."))
+
 (defclass primitive-binary (binary)
   ((value :type (integer 10 20))
    size)
