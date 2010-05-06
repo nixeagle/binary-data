@@ -15,6 +15,9 @@ This will be used in generic functions and method specializers as the base
 class. All classes have to be compatable with these methods or implement
 modifications so they do the right thing."))
 
+(defclass binary-data-metaclass (standard-class)
+  ())
+
 (defgeneric bit-size-of (thing)
   (:documentation "Size of THING in bits."))
 
@@ -49,6 +52,5 @@ modifications so they do the right thing."))
 
 
 
-(defclass binary-data-metaclass (standard-class)
-  ())
+
 ;;; END
