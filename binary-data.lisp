@@ -20,6 +20,9 @@ modifications so they do the right thing."))
    size)
   (:documentation "Simple binary types such as integers."))
 
+(defclass bit-field-metaclass (standard-class)
+  ())
+
 (defclass bit-field-slot-definition (standard-slot-definition)
   ((bit-field-size :accessor bit-field-size :initarg :bits
                    :initform nil)))
@@ -31,9 +34,6 @@ modifications so they do the right thing."))
 (defclass bit-field-effective-slot-definition (standard-effective-slot-definition
                                                bit-field-slot-definition)
    ())
-
-(defclass bit-field-metaclass (standard-class)
-  ())
 
 
 ;;; END
