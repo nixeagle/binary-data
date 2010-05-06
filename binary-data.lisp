@@ -8,15 +8,14 @@
 
 (in-package :nixeagle.binary-data)
 
-(defclass binary () ()
-  (:documentation "Abstract class for all classes dealing with binary data.
+(defclass binary-data-object (standard-object)
+  ()
+  (:documentation
+   "Base object class for all classes dealing with binary data.
 
 This will be used in generic functions and method specializers as the base
 class. All classes have to be compatable with these methods or implement
 modifications so they do the right thing."))
-
-(defclass binary-data-object (standard-object)
-  ())
 
 (defclass binary-data-metaclass (standard-class)
   ()
