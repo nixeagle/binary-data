@@ -89,6 +89,7 @@ Values that make sense as of [2010-05-06 Thu 01:59] are:
 
 (defmethod direct-slot-definition-class ((class binary-data-metaclass) &key)
   (find-class 'bit-field-direct-slot-definition))
-
+(defmethod effective-slot-definition-class ((class binary-data-metaclass) &key)
+  (find-class 'bit-field-effective-slot-definition))
 
 ;;; END
