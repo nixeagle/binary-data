@@ -51,6 +51,13 @@ Values that make sense as of [2010-05-06 Thu 01:59] are:
       (apply #'call-next-method slot :bits (* 8 octets) initargs)
       (call-next-method)))
 
+(defmethod compute-effective-slot-definition :around
+    ((class binary-data-metaclass) (name t) slot)
+  (let ((effective-slot (call-next-method)))
+    (setf (bit-size-of effective-slot)
+          (bit-size-of (car slot)))
+    effective-slot))
+
 (defclass bit-field-direct-slot-definition (standard-direct-slot-definition
                                             bit-field-slot-definition)
    ())
