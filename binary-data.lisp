@@ -21,11 +21,6 @@ modifications so they do the right thing."))
 (defgeneric size-of (thing)
   (:documentation "Size of THING in bytes."))
 
-(defclass primitive-binary (binary)
-  ((value :type (integer 10 20))
-   size)
-  (:documentation "Simple binary types such as integers."))
-
 (defclass endian-slot-definition (standard-slot-definition)
   ((endian :initarg :endian :initform :little-endian)))
 
@@ -51,6 +46,5 @@ modifications so they do the right thing."))
 (defclass bit-field-effective-slot-definition (standard-effective-slot-definition
                                                bit-field-slot-definition)
    ())
-
 
 ;;; END
