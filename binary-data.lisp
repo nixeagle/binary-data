@@ -37,18 +37,6 @@ Values that make sense as of [2010-05-06 Thu 01:59] are:
 (defgeneric size-of (thing)
   (:documentation "Size of THING in octets which are also bytes."))
 
-(defclass endian-slot-definition (standard-slot-definition
-                                  endian-mixin)
-  ())
-
-(defclass endian-direct-slot-definition (standard-direct-slot-definition
-                                         endian-slot-definition)
-  ())
-
-(defclass endian-effective-slot-definition (standard-effective-slot-definition
-                                            endian-slot-definition)
-  ())
-
 (defclass bit-field-metaclass (standard-class)
   ())
 
