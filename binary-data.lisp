@@ -41,7 +41,14 @@ Values that make sense as of [2010-05-06 Thu 01:59] are:
   (reduce #'+ (class-slots (class-of object)) :key #'bit-size-of))
 
 (defgeneric size-of (thing)
-  (:documentation "Size of THING in octets which are also bytes."))
+  (:documentation "Size of THING in octets which are also bytes.
+
+If machine has a different number of bits to represent an octet, define an
+additional method that specializes on that machine's class."))
+
+(defmethod size-of ((object binary-data-object))
+  "Standard machine byte is 8 bits."
+  (ceiling (bit-size-of object) 8))
 
 (defclass bit-field-slot-definition (standard-slot-definition)
   ((bit-field-size :accessor bit-size-of :initarg :bits
