@@ -64,6 +64,19 @@ Values that make sense as of [2010-05-06 Thu 01:59] are:
   "bit-field classes may inherit from standard classes."
   t)
 
+(defmethod initialize-instance :around
+    ((class binary-data-metaclass)
+     &rest initargs &key direct-superclasses)
+  (declare (list initargs direct-superclasses))
+  (if (loop for super in direct-superclasses
+         thereis (subclassp super 'binary-data-object))
+      (call-next-method)
+      (apply #'call-next-method class
+             :direct-superclasses
+             (append direct-superclasses
+                     (list (find-class 'binary-data-object)))
+             initargs)))
+
 (defmethod direct-slot-definition-class ((class binary-data-metaclass) &key)
   (find-class 'bit-field-direct-slot-definition))
 
