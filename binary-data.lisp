@@ -55,6 +55,8 @@ modifications so they do the right thing."))
   "bit-field classes may inherit from standard classes."
   t)
 
+(defmethod direct-slot-definition-class ((class binary-data-metaclass) &key)
+  (find-class 'bit-field-direct-slot-definition))
 
 
 ;;; END
