@@ -37,9 +37,6 @@ Values that make sense as of [2010-05-06 Thu 01:59] are:
 (defgeneric size-of (thing)
   (:documentation "Size of THING in octets which are also bytes."))
 
-(defclass bit-field-metaclass (standard-class)
-  ())
-
 (defclass bit-field-slot-definition (standard-slot-definition)
   ((bit-field-size :accessor bit-size-of :initarg :bits
                    :initform nil)))
