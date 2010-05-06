@@ -36,7 +36,7 @@ modifications so they do the right thing."))
   ())
 
 (defclass bit-field-slot-definition (standard-slot-definition)
-  ((bit-field-size :accessor bit-field-size :initarg :bits
+  ((bit-field-size :accessor bit-size-of :initarg :bits
                    :initform nil)))
 
 (defclass bit-field-direct-slot-definition (standard-direct-slot-definition
@@ -46,6 +46,22 @@ modifications so they do the right thing."))
 (defclass bit-field-effective-slot-definition (standard-effective-slot-definition
                                                bit-field-slot-definition)
    ())
+
+(defclass octet-field-slot-definition (standard-slot-definition)
+  ((octet-field-size :accessor size-of :initarg :octets
+                     :initform nil)))
+
+(defmethod bit-size-of ((slot octet-field-slot-definition))
+  (* 8 (size-of slot)))
+
+(defclass octet-field-direct-slot-definition (standard-direct-slot-definition
+                                            octet-field-slot-definition)
+   ())
+
+(defclass octet-field-effective-slot-definition (standard-effective-slot-definition
+                                               octet-field-slot-definition)
+   ())
+
 
 (defclass binary-data-metaclass (standard-class)
   ())
