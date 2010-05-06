@@ -47,4 +47,6 @@ modifications so they do the right thing."))
                                                bit-field-slot-definition)
    ())
 
+(defclass binary-data-metaclass (standard-class)
+  ())
 ;;; END
