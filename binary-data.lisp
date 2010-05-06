@@ -1,5 +1,5 @@
 (defpackage #:nixeagle.binary-data
-  (:use :cl :closer-mop :nutils)
+  (:use :cl :closer-mop :nutils :flexi-streams)
   (:nicknames :binary-data)
   #.(let (list)
       (do-external-symbols (s :closer-mop)
@@ -29,10 +29,13 @@ Values that make sense as of [2010-05-06 Thu 01:59] are:
     - :big-endian"))
 
 (defclass endian-mixin ()
-  ((endian :initform :little-endian
-           :initarg :endian
-           :accessor endian
-           :documentation "Endian of the class as a whole.")))
+  ())
+
+(defclass big-endian (endian-mixin)
+  ())
+
+(defclass little-endian (endian-mixin)
+  ())
 
 (defgeneric bit-size-of (thing)
   (:documentation "Size of THING in bits."))
