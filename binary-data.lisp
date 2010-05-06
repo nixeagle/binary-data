@@ -18,6 +18,19 @@ modifications so they do the right thing."))
 (defclass binary-data-metaclass (standard-class)
   ())
 
+(defgeneric endian (object)
+  (:documentation "Returns a keyword indicating the `endian' of OBJECT.
+
+Values that make sense as of [2010-05-06 Thu 01:59] are:
+    - :little-endian
+    - :big-endian"))
+
+(defclass endian-mixin ()
+  ((endian :initform :little-endian
+           :initarg :endian
+           :accessor endian
+           :documentation "Endian of the class as a whole.")))
+
 (defgeneric bit-size-of (thing)
   (:documentation "Size of THING in bits."))
 
