@@ -15,8 +15,12 @@ This will be used in generic functions and method specializers as the base
 class. All classes have to be compatable with these methods or implement
 modifications so they do the right thing."))
 
-(defclass binary-data-metaclass (standard-class)
+(defclass binary-object (standard-object)
   ())
+
+(defclass binary-data-metaclass (standard-class)
+  ()
+  (:default-initargs :direct-superclasses (list (find-class 'binary-object))))
 
 (defgeneric endian (object)
   (:documentation "Returns a keyword indicating the `endian' of OBJECT.
