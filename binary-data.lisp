@@ -22,7 +22,7 @@ modifications so they do the right thing."))
   (:documentation "Size of THING in bits."))
 
 (defgeneric size-of (thing)
-  (:documentation "Size of THING in bytes."))
+  (:documentation "Size of THING in octets which are also bytes."))
 
 (defclass endian-slot-definition (standard-slot-definition)
   ((endian :initarg :endian :initform :little-endian)))
