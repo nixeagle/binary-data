@@ -38,6 +38,9 @@ Values that make sense as of [2010-05-06 Thu 01:59] are:
 (defgeneric bit-size-of (thing)
   (:documentation "Size of THING in bits."))
 
+(defmethod bit-size-of ((object binary-data-object))
+  (reduce #'+ (class-slots (class-of object)) :key #'bit-size-of))
+
 (defgeneric size-of (thing)
   (:documentation "Size of THING in octets which are also bytes."))
 
