@@ -20,6 +20,17 @@ modifications so they do the right thing."))
    size)
   (:documentation "Simple binary types such as integers."))
 
+(defclass endian-slot-definition (standard-slot-definition)
+  ((endian :initarg :endian :initform :little-endian)))
+
+(defclass endian-direct-slot-definition (standard-direct-slot-definition
+                                         endian-slot-definition)
+  ())
+
+(defclass endian-effective-slot-definition (standard-effective-slot-definition
+                                            endian-slot-definition)
+  ())
+
 (defclass bit-field-metaclass (standard-class)
   ())
 
