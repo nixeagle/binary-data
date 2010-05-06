@@ -42,6 +42,12 @@ modifications so they do the right thing."))
   ((bit-field-size :accessor bit-size-of :initarg :bits
                    :initform nil)))
 
+(defmethod initialize-instance :around ((slot bit-field-slot-definition) &rest initargs &key octets)
+  (declare (type (or null positive-fixnum) octets))
+  (if octets
+      (apply #'call-next-method slot :bits (* 8 octets) initargs)
+      (call-next-method)))
+
 (defclass bit-field-direct-slot-definition (standard-direct-slot-definition
                                             bit-field-slot-definition)
    ())
