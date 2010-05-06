@@ -50,6 +50,10 @@ modifications so they do the right thing."))
                                                bit-field-slot-definition)
    ())
 
+(defmethod validate-superclass ((class binary-data-metaclass)
+                                (super standard-class))
+  "bit-field classes may inherit from standard classes."
+  t)
 
 
 
