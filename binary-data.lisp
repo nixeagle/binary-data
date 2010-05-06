@@ -1,5 +1,5 @@
 (defpackage #:nixeagle.binary-data
-  (:use :cl :closer-mop)
+  (:use :cl :closer-mop :nutils)
   (:nicknames :binary-data)
   #.(let (list)
       (do-external-symbols (s :closer-mop)
