@@ -76,7 +76,12 @@ additional method that specializes on that machine's class."))
 
 (defclass bit-field-effective-slot-definition (standard-effective-slot-definition
                                                bit-field-slot-definition)
-   ())
+  ((bit-field-relative-position
+    :initform 0
+    :type non-negative-fixnum
+    :initarg :position
+    :reader bit-field-relative-position
+    :documentation "Position relative to first effective slot in class.")))
 
 (defmethod validate-superclass ((class binary-data-metaclass)
                                 (super standard-class))
