@@ -157,10 +157,23 @@ additional method that specializes on that machine's class."))
                                                  (cdr direct)))
             (nreverse name-dslotds-alist))))
 
+(defgeneric primary-byte-size (binary-data)
+  (declare (optimize (speed 3) (safety 1)))
+  (:documentation "Basic unit for output, most things use 8 bits.")
+  (:method ((class binary-data-object))
+    "Most everything is 8 bits"
+    8))
+
+
+
 (defgeneric write-object (object stream))
 
 (defgeneric read-object (object stream))
 
+(defgeneric binary-slot-value (new-value slot object))
 
+(defmethod binary-slot-value ((value integer) (slot bit-field-slot-definition) (object t))
+  (assert (typep value `(mod ,(expt (bit-size-of slot) 2))))
+  value)
 
 ;;; END
