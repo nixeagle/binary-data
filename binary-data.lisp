@@ -101,6 +101,28 @@ additional method that specializes on that machine's class."))
 (defmethod effective-slot-definition-class ((class binary-data-metaclass) &key)
   (find-class 'bit-field-effective-slot-definition))
 
+(defmethod compute-slots ((class binary-data-metaclass))
+  "Computes slots returning most specific first."
+  ;; Copied from sbcl's src/pcl/std-class.lisp [2010-05-06 Thu 21:30]
+  ;;
+  ;; We do this to preserve the computed slot ordering as this order is
+  ;; unspecified in the ANSI spec as well as the AMOP.
+  ;;
+  ;; We need our slots to be ordered most specific first.
+  (let ((name-dslotds-alist ()))
+    (dolist (c (reverse (class-precedence-list class)))
+      (dolist (slot (class-direct-slots c))
+        (let* ((name (slot-definition-name slot))
+               (entry (assoc name name-dslotds-alist :test #'eq)))
+          (if entry
+              (push slot (cdr entry))
+              (push (list name slot) name-dslotds-alist)))))
+    (mapcar (lambda (direct)
+              (compute-effective-slot-definition class
+                                                 (car direct)
+                                                 (cdr direct)))
+            (nreverse name-dslotds-alist))))
+
 (defgeneric write-object (object stream))
 
 (defgeneric read-object (object stream))
