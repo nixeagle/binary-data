@@ -85,9 +85,11 @@ additional method that specializes on that machine's class."))
 
 (defun %compute-little-endian-slot-positions (class)
   (declare (type (or binary-data-metaclass binary-data-object) class))
-  (nreverse (loop for slot in (class-slots class)
-               for position = 0 then (+ position (bit-size-of slot))
-               collect position)))
+  (loop
+     for slot in (class-slots class)
+     for position = 0 then (+ position last-position)
+     for last-position = (bit-size-of slot)
+     collect position))
 
 (defgeneric compute-slot-positions (class)
   (:documentation "Compute slot positions for binary output."))
