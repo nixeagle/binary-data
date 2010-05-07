@@ -101,6 +101,19 @@ additional method that specializes on that machine's class."))
                      (list (find-class 'binary-data-object)))
              initargs)))
 
+(defmethod reinitialize-instance :around
+    ((class binary-data-metaclass)
+     &rest initargs &key direct-superclasses)
+  (declare (list initargs direct-superclasses))
+  (if (loop for super in direct-superclasses
+         thereis (subclassp super 'binary-data-object))
+      (call-next-method)
+      (apply #'call-next-method class
+             :direct-superclasses
+             (append direct-superclasses
+                     (list (find-class 'binary-data-object)))
+             initargs)))
+
 (defmethod direct-slot-definition-class ((class binary-data-metaclass) &key)
   (find-class 'bit-field-direct-slot-definition))
 (defmethod effective-slot-definition-class ((class binary-data-metaclass) &key)
