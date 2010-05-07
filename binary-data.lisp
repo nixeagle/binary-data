@@ -191,7 +191,7 @@ additional method that specializes on that machine's class."))
 (defgeneric binary-slot-value (new-value slot object))
 
 (defmethod binary-slot-value ((value integer) (slot bit-field-slot-definition) (object t))
-  (assert (typep value `(mod ,(expt (bit-size-of slot) 2))))
+  (assert (typep value `(mod ,(expt 2 (bit-size-of slot)))))
   value)
 
 ;;; END
