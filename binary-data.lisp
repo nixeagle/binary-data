@@ -168,6 +168,18 @@ additional method that specializes on that machine's class."))
 
 (defgeneric write-object (object stream))
 
+(defmethod write-object ((obj binary-data-object) stream)
+  (let ((slot-positions (compute-slot-positions obj))
+        (byte-size (primary-byte-size obj))
+        (result-octets-as-integer 0))
+    (mapc (lambda (slot slot-position)
+              (setf (ldb (byte (bit-size-of slot) slot-position) result-octets-as-integer)
+                    (binary-slot-value (slot-value-using-class (class-of obj)
+                                                               obj slot)
+                                       slot obj)))
+            (class-slots (class-of obj)) slot-positions)
+    result-octets-as-integer))
+
 (defgeneric read-object (object stream))
 
 (defgeneric binary-slot-value (new-value slot object))
