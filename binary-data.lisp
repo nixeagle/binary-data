@@ -83,10 +83,26 @@ additional method that specializes on that machine's class."))
     :accessor bit-field-relative-position
     :documentation "Position relative to first effective slot in class.")))
 
+(defun %compute-little-endian-slot-positions (class)
+  (declare (type (or binary-data-metaclass binary-data-object) class))
+  (nreverse (loop for slot in (class-slots class)
+               for position = 0 then (+ position (bit-size-of slot))
+               collect position)))
+
+(defgeneric compute-slot-positions (class)
+  (:documentation "Compute slot positions for binary output."))
+
+(defmethod compute-slot-positions ((class binary-data-metaclass))
+  (%compute-little-endian-slot-positions class))
+
+(defmethod compute-slot-positions ((class binary-data-object))
+  (%compute-little-endian-slot-positions (class-of class)))
+
 (defmethod validate-superclass ((class binary-data-metaclass)
                                 (super standard-class))
   "bit-field classes may inherit from standard classes."
   t)
+
 
 (defmethod initialize-instance :around
     ((class binary-data-metaclass)
