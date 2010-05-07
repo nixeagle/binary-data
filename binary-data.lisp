@@ -1,5 +1,5 @@
 (defpackage #:nixeagle.binary-data
-  (:use :cl :closer-mop :nutils :flexi-streams)
+  (:use :cl :closer-mop :nutils)
   (:nicknames :binary-data)
   #.(let (list)
       (do-external-symbols (s :closer-mop)
@@ -100,5 +100,11 @@ additional method that specializes on that machine's class."))
   (find-class 'bit-field-direct-slot-definition))
 (defmethod effective-slot-definition-class ((class binary-data-metaclass) &key)
   (find-class 'bit-field-effective-slot-definition))
+
+(defgeneric write-object (object stream))
+
+(defgeneric read-object (object stream))
+
+
 
 ;;; END
