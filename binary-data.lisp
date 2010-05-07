@@ -179,6 +179,12 @@ additional method that specializes on that machine's class."))
                                        slot obj)))
             (class-slots (class-of obj)) slot-positions)
     result-octets-as-integer))
+(defgeneric write-octets (value object stream))
+
+(defmethod write-octets ((value integer) (obj little-endian) stream)
+  (loop for i from 0 below (size-of obj)
+       do (write-byte (ldb (byte 8 i) value) stream)))
+
 
 (defgeneric read-object (object stream))
 
