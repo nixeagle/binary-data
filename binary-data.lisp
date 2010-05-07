@@ -183,9 +183,9 @@ additional method that specializes on that machine's class."))
 (defgeneric write-octets (value object stream))
 
 (defmethod write-octets ((value integer) (obj little-endian) stream)
-  (loop for i from 0 below (size-of obj)
-       do (write-byte (ldb (byte 8 i) value) stream)))
-
+  (write-octets (loop for i from (- (* 8 (size-of obj)) 8) downto 0 by 8
+                   collect (ldb (byte 8 i) value))
+                obj stream))
 
 (defgeneric read-object (object stream))
 
