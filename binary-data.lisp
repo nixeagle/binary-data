@@ -53,11 +53,11 @@ additional method that specializes on that machine's class."))
   "Computes total octets/bytes that OBJECT takes.
 
 For most BINARY-DATA-OBJECT's the primary machine size can be specified in
-`primary-octet-size' and defaults to 8.
+`primary-machine-byte-size' and defaults to 8.
 
 If some types are defined in terms of octets/bytes instead of bits, this
 can be defined to return that number instead of computing one."
-  (ceiling (bit-size-of object) (primary-octet-size object)))
+  (ceiling (bit-size-of object) (primary-machine-byte-size object)))
 
 (defclass bit-field-slot-definition (standard-slot-definition)
   ((bit-field-size :accessor bit-size-of :initarg :bits
@@ -165,7 +165,7 @@ can be defined to return that number instead of computing one."
                                                  (cdr direct)))
             (nreverse name-dslotds-alist))))
 
-(defgeneric primary-octet-size (binary-data)
+(defgeneric primary-machine-byte-size (binary-data)
   (declare (optimize (speed 3) (safety 1)))
   (:documentation "Basic unit for output, most things use 8 bits.")
   (:method ((class binary-data-object))
