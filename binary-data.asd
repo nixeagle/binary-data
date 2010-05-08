@@ -1,5 +1,5 @@
 (asdf:defsystem :binary-data
-  :depends-on (:closer-mop :nutils :eos)
+  :depends-on (:closer-mop :nutils :eos :flexi-streams)
   :serial t
   :components
   ((:file "package")
