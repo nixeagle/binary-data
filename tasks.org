@@ -1,0 +1,4 @@
+* Tasks
+
+*** TODO Write readme
+    Describe 2 major non asdf-installable dependencies, Eos and nutils.
