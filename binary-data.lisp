@@ -99,8 +99,15 @@ can be defined to return that number instead of computing one."
   (error "COMPUTE-SLOT-POSITIONS works with class instances only, not ~A"
          class))
 
-(defmethod compute-slot-positions ((class binary-little-endian-object))
+(defgeneric compute-endian-slot-positions (class)
+  (:documentation "Compute slots based on endianess."))
+
+(defmethod compute-slot-positions ((class binary-data-object))
+  (compute-endian-slot-positions class))
+
+(defmethod compute-endian-slot-positions ((class little-endian))
   (%compute-little-endian-slot-positions class))
+
 
 (defmethod validate-superclass ((class binary-data-metaclass)
                                 (super standard-class))
