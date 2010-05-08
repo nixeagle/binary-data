@@ -1,4 +1,4 @@
-(in-package :nixeagle.binary-data)
+(in-package :binary-data)
 
 (defclass binary-data-object (standard-object)
   ()
