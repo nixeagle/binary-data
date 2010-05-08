@@ -1,6 +1,10 @@
 * Tasks
 
-*** TODO Write readme
+*** DONE Write readme
+    CLOSED: [2010-05-08 Sat 02:30]
+    :LOGBOOK:
+    - State "DONE"       from "TODO"       [2010-05-08 Sat 02:28]
+    :END:
     Describe 2 major non asdf-installable dependencies, Eos and nutils.
 
 *** TODO Handle nested binary structures

@@ -1,0 +1,36 @@
+#+TITLE: binary-data
+
+Common lisp library for describing binary formats of all varieties. This
+library uses the [[http://www.alu.org/mop/][MetaObject Protocol]] vie the portability library
+[[http://common-lisp.net/project/closer/][Closer MOP]].
+
+Current status is somewhere between *pre-alpha and alpha*. Please do not
+use this library with the expectation of the api remaining stable.
+
+* Setup
+  This library is currently _not_ asdf installable. You need to clone this
+  repository:
+  : git clone git://github.com/nixeagle/binary-data.git
+  and symlink binary-data.asd to some directory known to asdf-install. For
+  example:
+  : ln -s /location/known/to/asdf/ binary-data/binary-data.asd
+
+  Read on for the remaining non asdf-installable dependencies.
+
+*** Non asdf-installable dependencies
+    Currently this project depends on [[http://github.com/adlai/Eos][Eos]] and [[http://github.com/nixeagle/nutils][nutils]]. Both are on
+    github. Eos is developed by Adlai, however I recommend my fork at be
+    cloned instead for this project as there are plans to do some downstream
+    modifications to eos for this and related projects.
+
+    Please do git clone on these two repositories:
+
+    - [[git://github.com/nixeagle/Eos.git]]
+      - symlink from a location known to asdf-install the file Eos/eos.asd.
+        - =ln -s /location/known/to/asdf/ Eos/eos.asd=
+    - [[git://github.com/nixeagle/nutils.git]]
+      - as above, but symlink nutils/nutils.asd
+      - For anyone wondering, these utilities are basically my extensions to
+        alexandria and other generally useful utilities to projects I work
+        on.
+
