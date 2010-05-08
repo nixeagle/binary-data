@@ -3,4 +3,8 @@
   :serial t
   :components
   ((:file "package")
-   (:file "binary-data")))
+   (:file "binary-data")
+   (:module :tests
+            :serial t
+            :components
+            ((:file "little-endian")))))
