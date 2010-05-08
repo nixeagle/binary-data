@@ -50,8 +50,14 @@ If machine has a different number of bits to represent an octet, define an
 additional method that specializes on that machine's class."))
 
 (defmethod size-of ((object binary-data-object))
-  "Standard machine byte is 8 bits."
-  (ceiling (bit-size-of object) 8))
+  "Computes total octets/bytes that OBJECT takes.
+
+For most BINARY-DATA-OBJECT's the primary machine size can be specified in
+`primary-byte-size' and defaults to 8.
+
+If some types are defined in terms of octets/bytes instead of bits, this
+can be defined to return that number instead of computing one."
+  (ceiling (bit-size-of object) (primary-byte-size object)))
 
 (defclass bit-field-slot-definition (standard-slot-definition)
   ((bit-field-size :accessor bit-size-of :initarg :bits
