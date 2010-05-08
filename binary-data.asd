@@ -1,4 +1,6 @@
 (asdf:defsystem :binary-data
   :depends-on (:closer-mop :nutils :eos)
+  :serial t
   :components
-  ((:file "binary-data")))
+  ((:file "package")
+   (:file "binary-data")))
