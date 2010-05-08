@@ -86,11 +86,6 @@ can be defined to return that number instead of computing one."
      for position = (- (bit-size-of object) 8) then (- position (bit-size-of slot))
      collect position))
 
-;;; Both of these are hacks to make sure slot positions are only computed
-;;; for things that are both `*-endian' and `binary-data-object'.
-(defclass binary-little-endian-object (little-endian binary-data-object) ())
-(defclass binary-big-endian-object (big-endian binary-data-object) ())
-
 (defgeneric compute-slot-positions (class)
   (:documentation "Compute slot positions for binary output."))
 
