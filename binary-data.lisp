@@ -45,6 +45,10 @@ If some types are defined in terms of octets/bytes instead of bits, this
 can be defined to return that number instead of computing one."
   (ceiling (bit-size-of object) (primary-machine-byte-size object)))
 
+(defmethod size-of ((object binary-data-metaclass))
+  "Works with metaclasses, won't work with resizable classes though."
+  (ceiling (bit-size-of object) (primary-machine-byte-size object)))
+
 (defclass bit-field-slot-definition (standard-slot-definition)
   ((bit-field-size :accessor bit-size-of :initarg :bits
                    :initform nil)))
@@ -205,7 +209,7 @@ octets. All values in VALUEs must be in the range 0 to 255 inclusive.
 Finally as there is no way to know which order the list VALUE is in, it is
 written to STREAM in the exact order as given.
 
-See `write-octet-list' for more details."
+aSee `write-octet-list' for more details."
   (write-octet-list value stream))
 
 (defgeneric read-object (object stream))
