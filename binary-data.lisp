@@ -166,7 +166,7 @@ can be defined to return that number instead of computing one."
 (defgeneric primary-machine-byte-size (binary-data)
   (declare (optimize (speed 3) (safety 1)))
   (:documentation "Basic unit for output, most things use 8 bits.")
-  (:method ((class binary-data-object))
+  (:method (thing)
     "Most everything is 8 bits"
     8))
 

@@ -34,4 +34,8 @@
     (is (equalp #(#x90 #x73 #x43) (test-write-octets 9466691)))))
 
 
+;;; applies to more then just little endian...
+(test (primary-machine-byte-size/general-case :suite root)
+  "Primary bytesize is 8 on more or less everything."
+  (is (= 8 (primary-machine-byte-size t))))
 ;;; END
