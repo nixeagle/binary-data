@@ -1,5 +1,3 @@
-#+TITLE: binary-data
-
 Common lisp library for describing binary formats of all varieties. This
 library uses the [[http://www.alu.org/mop/][MetaObject Protocol]] vie the portability library
 [[http://common-lisp.net/project/closer/][Closer MOP]].
