@@ -21,7 +21,7 @@
 
 (test (slot-positions :suite little-endian)
   "Make sure we signal error when given a metaclass for `slot-positions'."
-  (signals error (compute-slot-positions (find-class binary-data-metaclass))))
+  (signals error (compute-slot-positions (find-class 'binary-data-metaclass))))
 
 
 (test (write-octets :suite little-endian)
