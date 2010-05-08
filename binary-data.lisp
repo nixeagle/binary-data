@@ -86,7 +86,9 @@ can be defined to return that number instead of computing one."
   (:documentation "Compute slot positions for binary output."))
 
 (defmethod compute-slot-positions ((class binary-data-metaclass))
-  (%compute-little-endian-slot-positions class))
+  "Signals an error, we require object instances, not classes."
+  (error "COMPUTE-SLOT-POSITIONS works with class instances only, not ~A"
+         class))
 
 (defmethod compute-slot-positions ((class binary-data-object))
   (%compute-little-endian-slot-positions class))
