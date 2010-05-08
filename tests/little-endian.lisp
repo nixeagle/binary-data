@@ -17,3 +17,10 @@
                   (write-object (make-instance 'test-multi-byte-object) s))
              (unintern 'test-multi-byte-object))))
     (is (equalp #(144 73) (test-multi-byte-object)))))
+
+
+(test (slot-positions :suite little-endian)
+  "Make sure we signal error when given a metaclass for `slot-positions'."
+  (signals error (compute-slot-positions (find-class binary-data-metaclass))))
+
+;;; END
