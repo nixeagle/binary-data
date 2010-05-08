@@ -184,11 +184,6 @@ can be defined to return that number instead of computing one."
 
 (defgeneric write-octets (value object stream))
 
-(defmethod write-octets ((value integer) (obj binary-little-endian-object) stream)
-  (write-octets (loop for i from (- (* 8 (size-of obj)) 8) downto 0 by 8
-                   collect (ldb (byte 8 i) value))
-                obj stream))
-
 (defmethod write-octets ((value integer) (obj little-endian) (stream stream))
   (write-octets (loop for i from (* 8 (floor (log (1+ value) 255))) downto 0 by 8
                    collect (ldb (byte 8 i) value))
