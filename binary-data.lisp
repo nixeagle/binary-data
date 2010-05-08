@@ -75,12 +75,11 @@ can be defined to return that number instead of computing one."
     :accessor bit-field-relative-position
     :documentation "Position relative to first effective slot in class.")))
 
-(defun %compute-little-endian-slot-positions (class)
-  (declare (type (or binary-data-metaclass binary-data-object) class))
+(defun %compute-little-endian-slot-positions (object &aux (class (class-of object)))
+  (declare (type (or binary-data-object) object))
   (loop
      for slot in (class-slots class)
-     for position = 0 then (+ position last-position)
-     for last-position = (bit-size-of slot)
+     for position = (- (bit-size-of object) 8) then (- position (bit-size-of slot))
      collect position))
 
 (defgeneric compute-slot-positions (class)
@@ -90,7 +89,7 @@ can be defined to return that number instead of computing one."
   (%compute-little-endian-slot-positions class))
 
 (defmethod compute-slot-positions ((class binary-data-object))
-  (%compute-little-endian-slot-positions (class-of class)))
+  (%compute-little-endian-slot-positions class))
 
 (defmethod validate-superclass ((class binary-data-metaclass)
                                 (super standard-class))
