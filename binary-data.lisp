@@ -187,6 +187,29 @@ additional method that specializes on that machine's class."))
                    collect (ldb (byte 8 i) value))
                 obj stream))
 
+(defun write-octet-list (list stream)
+  "Write LIST to binary stream STREAM.
+
+LIST must contain integers in the range 0 to 255 inclusive."
+  (declare ((cons (mod 256)) list)
+           (stream stream)
+           (optimize (speed 2) (safety 3) (debug 1) (space 0)))
+  (write-byte (car list) stream)
+  (when (cdr list)
+    (write-octet-list (cdr list) stream)))
+
+(defmethod write-octets ((value cons) (obj endian-mixin) stream)
+  "Write VALUEs to STREAM.
+
+Values is assumed to be a list of integers already split up into
+octets. All values in VALUEs must be in the range 0 to 255 inclusive.
+
+Finally as there is no way to know which order the list VALUE is in, it is
+written to STREAM in the exact order as given.
+
+See `write-octet-list' for more details."
+  (write-octet-list value stream))
+
 (defgeneric read-object (object stream))
 
 (defgeneric binary-slot-value (new-value slot object))
