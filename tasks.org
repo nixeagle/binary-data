@@ -2,3 +2,15 @@
 
 *** TODO Write readme
     Describe 2 major non asdf-installable dependencies, Eos and nutils.
+
+*** TODO Handle nested binary structures
+    nested binary structures are used in things like ELF, various binary
+    protocols and so on.
+
+*** TODO Handle big-endian structures
+    Right now we do little-endian things ok, but things like MIPS64 are
+    big endian and we have to deal with this.
+
+
+
+
