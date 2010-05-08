@@ -21,12 +21,6 @@ modifications so they do the right thing."))
   ()
   (:default-initargs :direct-superclasses (list (find-class 'binary-data-object))))
 
-(defgeneric endian (object)
-  (:documentation "Returns a keyword indicating the `endian' of OBJECT.
-
-Values that make sense as of [2010-05-06 Thu 01:59] are:
-    - :little-endian
-    - :big-endian"))
 
 (defclass endian-mixin ()
   ())
