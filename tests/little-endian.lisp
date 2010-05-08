@@ -23,4 +23,15 @@
   "Make sure we signal error when given a metaclass for `slot-positions'."
   (signals error (compute-slot-positions (find-class binary-data-metaclass))))
 
+
+(test (write-octets :suite little-endian)
+  (flet ((test-write-octets (integer)
+           (flexi-streams:with-output-to-sequence (s)
+                (write-octets integer (make-instance 'little-endian) s))))
+    (is (equalp #(24) (test-write-octets 24)))
+    (is (equalp #(0) (test-write-octets 0)))
+    (is (equalp #(1 0) (test-write-octets 256)))
+    (is (equalp #(#x90 #x73 #x43) (test-write-octets 9466691)))))
+
+
 ;;; END
