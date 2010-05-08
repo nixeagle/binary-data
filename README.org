@@ -34,3 +34,10 @@ use this library with the expectation of the api remaining stable.
         alexandria and other generally useful utilities to projects I work
         on.
 
+* Implementation details
+*** endianness
+    For folks requiring a refresh or better understanding of how endian
+    works, [[http://en.wikipedia.org/w/index.php%3Ftitle%3DEndianness&oldid%3D360554759#Examples_of_storing_the_value_0A0B0C0Dh_in_memory][wikipedia]] has a good summary of 'little' and 'big' endian
+    mean.
+
+
