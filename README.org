@@ -35,7 +35,7 @@ use this library with the expectation of the api remaining stable.
 * Implementation details
 *** endianness
     For folks requiring a refresh or better understanding of how endian
-    works, [[http://en.wikipedia.org/w/index.php%3Ftitle%3DEndianness&oldid%3D360554759#Examples_of_storing_the_value_0A0B0C0Dh_in_memory][wikipedia]] has a good summary of 'little' and 'big' endian
+    works, [[http://en.wikipedia.org/w/index.php%3Ftitle%3DEndianness&oldid%3D360554759#Examples_of_storing_the_value_0A0B0C0Dh_in_memory][wikipedia]] has a good summary of what 'little' and 'big' endian
     mean.
 
 
