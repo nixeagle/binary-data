@@ -4,6 +4,9 @@
   :components
   ((:file "package")
    (:file "binary-data")
+   (:module :src
+            :components
+            ((:file "user-macros")))
    (:module :tests
             :serial t
             :components

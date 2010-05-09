@@ -6,4 +6,5 @@
   #.(let (list)
       (do-external-symbols (s :closer-mop)
         (push s list))
-      `(:shadowing-import-from :closer-mop ,@list)))
+      `(:shadowing-import-from :closer-mop ,@list))
+  (:export #:define-binary-class))
