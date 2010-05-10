@@ -60,10 +60,10 @@ can be defined to return that number instead of computing one."
       (call-next-method)))
 
 (defmethod compute-effective-slot-definition :around
-    ((class binary-data-metaclass) (name t) slot)
+    ((class binary-data-metaclass) (name t) slots)
   (let ((effective-slot (call-next-method)))
     (setf (bit-size-of effective-slot)
-          (bit-size-of (car slot)))
+          (bit-size-of (or (find-if #'bit-size-of slots) 0)))
     effective-slot))
 
 (defclass bit-field-direct-slot-definition (standard-direct-slot-definition
@@ -158,6 +158,11 @@ can be defined to return that number instead of computing one."
               (push slot (cdr entry))
               (push (list name slot) name-dslotds-alist)))))
     (mapcar (lambda (direct)
+              (unless (bit-size-of (car (cdr direct)))
+                (setf (bit-size-of (car (cdr direct)))
+                      (or (bit-size-of (find-if #'bit-size-of (cddr direct)))
+                          (error ":bits or :octets not found in a slot for ~A."
+                                 (car direct)))))
               (compute-effective-slot-definition class
                                                  (car direct)
                                                  (cdr direct)))
