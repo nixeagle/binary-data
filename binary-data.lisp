@@ -83,7 +83,7 @@ can be defined to return that number instead of computing one."
   (declare (type (or binary-data-object) object))
   (loop
      for slot in (class-slots class)
-     for position = (- (bit-size-of object) 8) then (- position (bit-size-of slot))
+     for position = (- (bit-size-of object) (bit-size-of slot)) then (- position (bit-size-of slot))
      collect position))
 
 (defgeneric compute-slot-positions (class)
@@ -180,7 +180,7 @@ can be defined to return that number instead of computing one."
             (setf (ldb (byte (bit-size-of slot) slot-position) result-octets-as-integer)
                   (binary-slot-value (slot-value-using-class (class-of obj)
                                                              obj slot)
-                                     slot obj)))
+                                     slot (slot-definition-name slot) obj)))
           (class-slots (class-of obj)) slot-positions)
     (write-octets result-octets-as-integer obj stream)))
 
@@ -216,9 +216,9 @@ aSee `write-octet-list' for more details."
 
 (defgeneric read-object (object stream))
 
-(defgeneric binary-slot-value (new-value slot object))
+(defgeneric binary-slot-value (new-value slot name object))
 
-(defmethod binary-slot-value ((value integer) (slot bit-field-slot-definition) (object t))
+(defmethod binary-slot-value ((value integer) (slot bit-field-slot-definition) (name symbol) (object t))
   (assert (typep value `(mod ,(expt 2 (bit-size-of slot)))))
   value)
 
