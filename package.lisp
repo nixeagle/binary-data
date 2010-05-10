@@ -21,6 +21,7 @@
            #:read-object
            #:binary-slot-value
            #:binary-data-object
-           #:binary-data-metaclass))
+           #:binary-data-metaclass
+           #:bit-field-slot-definition))
 
 ;;; END
