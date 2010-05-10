@@ -82,7 +82,7 @@ can be defined to return that number instead of computing one."
 (defun %compute-little-endian-slot-positions (object &aux (class (class-of object)))
   (declare (type (or binary-data-object) object))
   (loop
-     for slot in (class-slots class)
+     for slot in (class-direct-slots class)
      for position = (- (bit-size-of object) (bit-size-of slot)) then (- position (bit-size-of slot))
      collect position))
 
@@ -178,10 +178,9 @@ can be defined to return that number instead of computing one."
         (result-octets-as-integer 0))
     (mapc (lambda (slot slot-position)
             (setf (ldb (byte (bit-size-of slot) slot-position) result-octets-as-integer)
-                  (binary-slot-value (slot-value-using-class (class-of obj)
-                                                             obj slot)
+                  (binary-slot-value (slot-value obj (slot-definition-name slot))
                                      slot (slot-definition-name slot) obj)))
-          (class-slots (class-of obj)) slot-positions)
+          (class-direct-slots (class-of obj)) slot-positions)
     (write-octets result-octets-as-integer obj stream)))
 
 (defgeneric write-octets (value object stream))
