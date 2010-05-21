@@ -176,9 +176,10 @@ can be defined to return that number instead of computing one."
     8))
 
 
-(defgeneric write-object (object stream))
+(defgeneric write-object (object stream)
+  (:method-combination progn :most-specific-last))
 
-(defmethod write-object ((obj binary-data-object) stream)
+(defmethod write-object progn ((obj binary-data-object) stream)
   (let ((slot-positions (compute-slot-positions obj))
         (result-octets-as-integer 0))
     (mapc (lambda (slot slot-position)
