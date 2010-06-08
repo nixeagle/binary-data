@@ -13,16 +13,6 @@ modifications so they do the right thing."))
   ()
   (:default-initargs :direct-superclasses (list (find-class 'binary-data-object))))
 
-
-(defclass endian-mixin ()
-  ())
-
-(defclass big-endian (endian-mixin)
-  ())
-
-(defclass little-endian (endian-mixin)
-  ())
-
 (defgeneric bit-size-of (thing)
   (:documentation "Size of THING in bits."))
 
@@ -100,7 +90,7 @@ can be defined to return that number instead of computing one."
 (defmethod compute-slot-positions ((class binary-data-object))
   (compute-endian-slot-positions class))
 
-(defmethod compute-endian-slot-positions ((class little-endian))
+(defmethod compute-endian-slot-positions ((class t))
   (%compute-little-endian-slot-positions class))
 
 
@@ -191,7 +181,7 @@ can be defined to return that number instead of computing one."
 
 (defgeneric write-octets (value object stream))
 
-(defmethod write-octets ((value integer) (obj little-endian) (stream stream))
+(defmethod write-octets ((value integer) (obj t) (stream stream))
   (write-octets (loop for i from (* 8 (floor (log (1+ value) 255))) downto 0 by 8
                    collect (ldb (byte 8 i) value))
                 obj stream))
@@ -207,7 +197,7 @@ LIST must contain integers in the range 0 to 255 inclusive."
   (when (cdr list)
     (write-octet-list (cdr list) stream)))
 
-(defmethod write-octets ((value cons) (obj endian-mixin) stream)
+(defmethod write-octets ((value cons) (obj t) stream)
   "Write VALUEs to STREAM.
 
 Values is assumed to be a list of integers already split up into
