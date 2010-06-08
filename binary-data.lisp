@@ -103,6 +103,7 @@ can be defined to return that number instead of computing one."
 (defmethod initialize-instance :around
     ((class binary-data-metaclass)
      &rest initargs &key direct-superclasses)
+  "Make sure that BINARY-DATA-OBJECT is in supers list."
   (declare (list initargs direct-superclasses))
   (if (loop for super in direct-superclasses
          thereis (subclassp super 'binary-data-object))
@@ -116,6 +117,7 @@ can be defined to return that number instead of computing one."
 (defmethod reinitialize-instance :around
     ((class binary-data-metaclass)
      &rest initargs &key direct-superclasses)
+  "Make sure that BINARY-DATA-OBJECT is in supers list."
   (declare (list initargs direct-superclasses))
   (if (loop for super in direct-superclasses
          thereis (subclassp super 'binary-data-object))
