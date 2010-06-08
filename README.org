@@ -39,3 +39,11 @@ use this library with the expectation of the api remaining stable.
     mean.
 
 
+
+
+* Credits
+  Inspiration and ideas came from [[http://www.gigamonkeys.com/book/practical-parsing-binary-files.html][parsing binary files]]. Especially the
+  portions about handling slot types. These portions were/will be
+  inspiring and motivating the style used when integrating with the MOP.
+
+  The code for this is released under a BSD style license.
