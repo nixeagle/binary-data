@@ -13,6 +13,23 @@ modifications so they do the right thing."))
   ()
   (:default-initargs :direct-superclasses (list (find-class 'binary-data-object))))
 
+(defclass bit-field-slot-definition (standard-slot-definition)
+  ((bit-field-size :accessor bit-size-of :initarg :bits
+                   :initform nil)))
+(defclass bit-field-direct-slot-definition (standard-direct-slot-definition
+                                            bit-field-slot-definition)
+   ())
+
+(defclass bit-field-effective-slot-definition (standard-effective-slot-definition
+                                               bit-field-slot-definition)
+  ((bit-field-relative-position
+    :initform 0
+    :type non-negative-fixnum
+    :initarg :position
+    :accessor bit-field-relative-position
+    :documentation "Position relative to first effective slot in class.")))
+
+
 (defgeneric bit-size-of (thing)
   (:documentation "Size of THING in bits."))
 
@@ -39,10 +56,6 @@ can be defined to return that number instead of computing one."
   "Works with metaclasses, won't work with resizable classes though."
   (ceiling (bit-size-of object) (primary-machine-byte-size object)))
 
-(defclass bit-field-slot-definition (standard-slot-definition)
-  ((bit-field-size :accessor bit-size-of :initarg :bits
-                   :initform nil)))
-
 (defmethod initialize-instance :around ((slot bit-field-slot-definition) &rest initargs &key octets)
   (declare (type (or null positive-fixnum) octets))
   (if octets
@@ -55,19 +68,6 @@ can be defined to return that number instead of computing one."
     (setf (bit-size-of effective-slot)
           (bit-size-of (or (find-if #'bit-size-of slots) 0)))
     effective-slot))
-
-(defclass bit-field-direct-slot-definition (standard-direct-slot-definition
-                                            bit-field-slot-definition)
-   ())
-
-(defclass bit-field-effective-slot-definition (standard-effective-slot-definition
-                                               bit-field-slot-definition)
-  ((bit-field-relative-position
-    :initform 0
-    :type non-negative-fixnum
-    :initarg :position
-    :accessor bit-field-relative-position
-    :documentation "Position relative to first effective slot in class.")))
 
 (defun %compute-little-endian-slot-positions (object &aux (class (class-of object)))
   (declare (type (or binary-data-object) object))
