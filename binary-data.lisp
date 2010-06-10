@@ -219,4 +219,10 @@ aSee `write-octet-list' for more details."
   (assert (typep value `(mod ,(expt 2 (bit-size-of slot)))))
   value)
 
+;;;
+(defgeneric write-value (type value stream &key slot object))
+(defgeneric read-value (type stream &key slot object))
+(defgeneric read-object (object stream))
+(defgeneric write-object (object stream))
+
 ;;; END
