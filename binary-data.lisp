@@ -77,7 +77,8 @@
 (defun slot-to-defclass-slot (specification)
   "Convert specification to a slotname with initarg."
   (let ((name (first specification)))
-    `(,name :initarg ,(alexandria:make-keyword name))))
+    `(,name :initarg ,(alexandria:make-keyword name)
+            :type ,(second specification))))
 
 (defun normalize-slot-specification (specification)
   (list (first specification) (alexandria:ensure-list (second specification))))
@@ -123,7 +124,8 @@
    (lambda (slotd)
      (setf (closer-mop:slot-value-using-class (class-of object) object slotd)
            (read-slotd-value slotd stream)))
-   (closer-mop:class-slots (class-of object))))
+   (closer-mop:class-slots (class-of object)))
+  object)
 
 (defmacro define-generic-binary-class (name (&rest superclasses) slots read-method)
   `(progn
