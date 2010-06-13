@@ -3,6 +3,7 @@
   :serial t
   :components
   ((:file "package")
+   (:file "metaclasses")
    (:file "binary-data")
  #+ ()  (:module :src
             :components

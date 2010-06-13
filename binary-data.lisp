@@ -128,7 +128,8 @@
 (defmacro define-generic-binary-class (name (&rest superclasses) slots read-method)
   `(progn
      (defclass ,name ,superclasses
-       ,(mapcar #'slot-to-defclass-slot slots))
+       ,(mapcar #'slot-to-defclass-slot slots)
+       (:metaclass binary-data-metaclass))
      ,read-method))
 
 (defmacro define-binary-class (name (&rest superclasses) slots)
