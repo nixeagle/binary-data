@@ -4,10 +4,10 @@
   :components
   ((:file "package")
    (:file "binary-data")
-   (:module :src
+ #+ ()  (:module :src
             :components
             ((:file "user-macros")))
-   (:module :tests
+#+ ()   (:module :tests
             :serial t
             :components
             ((:file "little-endian")))))
