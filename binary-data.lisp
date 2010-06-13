@@ -51,28 +51,32 @@
 
 
 (defun type-reader-body (spec stream)
-  (ecase (length spec)
+  (case (length spec)
     (1 (destructuring-bind (type &rest args) (alexandria:ensure-list (first spec))
          `(read-value ',type ,stream ,@args)))
-    (2 (destructuring-bind ((in) &body body) (cdr (assoc :reader spec))
+    (otherwise (destructuring-bind ((in) &body body) (cdr (assoc :reader spec))
          `(let ((,in ,stream)) ,@body)))))
 
 (defun type-writer-body (spec stream value)
-  (ecase (length spec)
+  (case (length spec)
     (1 (destructuring-bind (type &rest args) (alexandria:ensure-list (first spec))
          `(write-value ',type ,stream ,value ,@args)))
-    (2 (destructuring-bind ((out v) &body body) (cdr (assoc :writer spec))
+    (otherwise (destructuring-bind ((out v) &body body) (cdr (assoc :writer spec))
          `(let ((,out ,stream) (,v ,value)) ,@body)))))
 
 (defmacro define-binary-type (name (&rest args) &body spec)
   (nutils:with-gensyms (type stream value)
-  `(progn
-    (defmethod read-value ((,type (eql ',name)) ,stream &key ,@args)
-      (declare (ignorable ,@args))
-      ,(type-reader-body spec stream))
-    (defmethod write-value ((,type (eql ',name)) ,stream ,value &key ,@args)
-      (declare (ignorable ,@args))
-      ,(type-writer-body spec stream value)))))
+    `(progn
+       ,(when (and (< 1 (length spec)) (assoc-value spec :type))
+              `(deftype ,name (,@(if args
+                                     (append (list '&key) args)))
+                 ,@(assoc-value spec :type)))
+       (defmethod read-value ((,type (eql ',name)) ,stream &key ,@args)
+         (declare (ignorable ,@args))
+         ,(type-reader-body spec stream))
+       (defmethod write-value ((,type (eql ',name)) ,stream ,value &key ,@args)
+         (declare (ignorable ,@args))
+         ,(type-writer-body spec stream value)))))
 
 (defun slot-to-defclass-slot (specification)
   "Convert specification to a slotname with initarg."
