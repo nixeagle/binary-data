@@ -107,16 +107,17 @@
 (defun write-slotd-value (object slotd stream)
   (declare (closer-mop:slot-definition slotd)
            (stream stream))
-  (write-value (closer-mop:slot-definition-type slotd)
-               (closer-mop:slot-value-using-class (class-of object) object slotd)
-               stream))
+  (apply #'write-value (ensure-car (closer-mop:slot-definition-type slotd))
+         (closer-mop:slot-value-using-class (class-of object) object slotd)
+         stream
+         (ensure-cdr (closer-mop:slot-definition-type slotd))))
 
 (defun read-slotd-value (slotd stream)
   (declare (closer-mop:slot-definition slotd)
            (stream stream))
-  (read-value (closer-mop:slot-definition-type slotd)
-
-              stream))
+  (apply #'read-value (ensure-car (closer-mop:slot-definition-type slotd))
+         stream
+         (ensure-cdr (closer-mop:slot-definition-type slotd))))
 
 (defmethod write-object ((object closer-mop:standard-object) stream)
   (mapc (lambda (slotd)
