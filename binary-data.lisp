@@ -72,10 +72,10 @@
                                      (append (list '&key) args)))
                  ,@(assoc-value spec :type)))
        (defmethod read-value ((,type (eql ',name)) ,stream &key ,@args)
-         (declare (ignorable ,@args))
+         (declare (ignorable ,@(mapcar #'ensure-car args)))
          ,(type-reader-body spec stream))
        (defmethod write-value ((,type (eql ',name)) ,stream ,value &key ,@args)
-         (declare (ignorable ,@args))
+         (declare (ignorable ,@(mapcar #'ensure-car args)))
          ,(type-writer-body spec stream value)))))
 
 (defun slot-to-defclass-slot (specification)
