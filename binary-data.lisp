@@ -45,8 +45,9 @@
     (read-object object stream)
     object))
 
-(defmethod write-value ((type symbol) stream value &key)
-  (assert (typep value type))
+(defmethod write-value ((type symbol) value stream &key)
+  (assert (typep value type) nil "type: ~A value: ~A don't match."
+          type value)
   (write-object value stream))
 
 
