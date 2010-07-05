@@ -142,3 +142,15 @@
 
 (defmacro define-binary-class (name (&rest superclasses) slots)
   `(define-generic-binary-class ,name ,superclasses ,slots ()))
+
+
+
+;;; Some utilities for folks using binary-data
+
+(defun write-little-endian-integer (integer stream
+                     &optional (size (ceiling (log (1+ integer) 256))))
+  "Write a little endian INTEGER to STREAM"
+  (loop for i from 0 to (1- size)
+     do (write-byte (ldb (byte 8 (* 8 i)) integer) stream)))
+
+;;; END
