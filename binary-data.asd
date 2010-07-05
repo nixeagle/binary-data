@@ -5,6 +5,7 @@
   ((:file "package")
    (:file "metaclasses")
    (:file "binary-data")
+   (:file "tests")
  #+ ()  (:module :src
             :components
             ((:file "user-macros")))
